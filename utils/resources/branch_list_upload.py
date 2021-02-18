@@ -9,17 +9,19 @@ def create_bank_and_branch():
         count = 0
 
         for row in reader:
+            if count > 8000:
+                break
             try:
-                if not count > 80000:
-                    bank = Bank.objects.get(id=row['bank_id'])
-                    branch = Branch.objects.get(ifsc=row['ifsc'], bank=bank)
+                bank = Bank.objects.get(id=row['bank_id'])
+                branch = Branch.objects.get(ifsc=row['ifsc'], bank=bank)
 
             except Branch.DoesNotExist:
                 Branch.objects.create(bank=bank, ifsc=row['ifsc'], branch=row['branch'], address=row['address'],
                                       city=row['city'], district=row['district'], state=['state'])
+                count += 1
 
             except Bank.DoesNotExist:
                 bank = Bank.objects.create(id=row['bank_id'], name=row['bank_name'])
                 Branch.objects.create(bank=bank, ifsc=row['ifsc'], branch=row['branch'], address=row['address'],
                                       city=row['city'], district=row['district'], state=['state'])
-            count += 1
+                count += 2
