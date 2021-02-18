@@ -1,0 +1,15 @@
+{
+  "name": "Bank search app",
+  "description": " ",
+  "image": "heroku/python",
+  "repository": " ",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql" ],
+  "env": {
+    "SECRET_KEY": {
+      "description": "The secret key for the Django application.",
+      "generator": "secret"
+    }
+  },
+  "environments": {}
+}
